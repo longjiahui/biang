@@ -1,0 +1,27 @@
+{
+  "name": "biang",
+  "version": "1.0.0",
+  "description": "biang modal",
+  "main": "demo.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/longjiahui/biang.git"
+  },
+  "keywords": [
+    "biang",
+    "modal",
+    "layer"
+  ],
+  "author": "Anfo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/longjiahui/biang/issues"
+  },
+  "homepage": "https://github.com/longjiahui/biang#readme",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}
