@@ -7,6 +7,8 @@ $(function(){
             biang.biang({
                 title:'haha',
                 url:'http://baidu.com',
+                button:['yes', {text:'no', type:'shutdown'}, 'haha'],
+                callback:[function(){console.log('yes')}, null, function(){console.log('haha')}]
             });
     });
 });

@@ -10413,7 +10413,7 @@ function show(biang){
 function empty(biang){
     biang.find('.biang-header-title').text('');
     biang.find('.biang-content').html('');
-    biang.find('.binag-footer').html('');
+    biang.find('.biang-footer').html('');
 }
 function hide(biang){
     biang = $(biang);
@@ -10454,10 +10454,6 @@ function modifyBiang(biang , config){
     if(config.title!=null){
         biang.find('.biang-header-title').text(config.title);
     }
-    
-    function getButtonTemplate(text){
-        return $('<button>text</button>')
-    }
 
     //footer buttons
     renderFooter(config.button, config.callback, biang);
@@ -10476,6 +10472,10 @@ function getBiangTemplate(){
 '        </div>'+
 '    </div>');
 }
+    
+function getButtonTemplate(text){
+    return $('<button>'+text+'</button>')
+}
 
 function renderFooter(buttonsConfig,callbacksConfig, biang){
     if(buttonsConfig ==null)return;
@@ -10490,7 +10490,7 @@ function renderFooter(buttonsConfig,callbacksConfig, biang){
             var text = buttonConfig.text;
             var type = buttonConfig.type;
         }
-        var button = getButtonTemplate(buttonConfig);
+        var button = getButtonTemplate(text);
         if(type =='shutdown'){
             button.click((function(){
                 var biangLocal = biang;
@@ -10502,8 +10502,9 @@ function renderFooter(buttonsConfig,callbacksConfig, biang){
         if(callbacksConfig!=null && callbacksConfig[i]!=null){
             button.click((function(){
                 var biangLocal = biang;
+                var callback = callbacksConfig[i];
                 return function(){
-                    callbacksConfig[i](biangLocal);
+                    callback(biangLocal);
                 }
             })());      
         }
@@ -10545,6 +10546,8 @@ $(function(){
             biang.biang({
                 title:'haha',
                 url:'http://baidu.com',
+                button:['yes', {text:'no', type:'shutdown'}, 'haha'],
+                callback:[function(){console.log('yes')}, null, function(){console.log('haha')}]
             });
     });
 });
