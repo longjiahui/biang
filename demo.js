@@ -1,4 +1,64 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+var containers = []; // will store container HTMLElement references
+var styleElements = []; // will store {prepend: HTMLElement, append: HTMLElement}
+
+var usage = 'insert-css: You need to provide a CSS string. Usage: insertCss(cssString[, options]).';
+
+function insertCss(css, options) {
+    options = options || {};
+
+    if (css === undefined) {
+        throw new Error(usage);
+    }
+
+    var position = options.prepend === true ? 'prepend' : 'append';
+    var container = options.container !== undefined ? options.container : document.querySelector('head');
+    var containerId = containers.indexOf(container);
+
+    // first time we see this container, create the necessary entries
+    if (containerId === -1) {
+        containerId = containers.push(container) - 1;
+        styleElements[containerId] = {};
+    }
+
+    // try to get the correponding container + position styleElement, create it otherwise
+    var styleElement;
+
+    if (styleElements[containerId] !== undefined && styleElements[containerId][position] !== undefined) {
+        styleElement = styleElements[containerId][position];
+    } else {
+        styleElement = styleElements[containerId][position] = createStyleElement();
+
+        if (position === 'prepend') {
+            container.insertBefore(styleElement, container.childNodes[0]);
+        } else {
+            container.appendChild(styleElement);
+        }
+    }
+
+    // strip potential UTF-8 BOM if css was read from a file
+    if (css.charCodeAt(0) === 0xFEFF) { css = css.substr(1, css.length); }
+
+    // actually add the stylesheet
+    if (styleElement.styleSheet) {
+        styleElement.styleSheet.cssText += css
+    } else {
+        styleElement.textContent += css;
+    }
+
+    return styleElement;
+};
+
+function createStyleElement() {
+    var styleElement = document.createElement('style');
+    styleElement.setAttribute('type', 'text/css');
+    return styleElement;
+}
+
+module.exports = insertCss;
+module.exports.insertCss = insertCss;
+
+},{}],2:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.3.1
  * https://jquery.com/
@@ -10364,22 +10424,31 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 const $ = require('jquery');
+const insertCss = require('insert-css');
+
+//text file
+const style = require('./static/css/biang.css');
+const html = require('./static/biang.html');
+
+//insert into head tag
+insertCss(style);
 
 //事件委托
-$(function(){
-	console.log('hello');
-    $('body').on('click', '.biang-shutdown-icon,.biang-mask', function(){
-        toggle($(this).parents('.biang'));  
+$(function () {
+    console.log('hello');
+    $('body').on('click', '.biang-shutdown-icon,.biang-mask', function () {
+        toggle($(this).parents('.biang'));
     });
 });
 
-var instance =null;
-function getInstance(){
-    
+var instance = null;
+
+function getInstance() {
+
     //如果还没初始化，则初始化
-    if(instance == null){
+    if (instance == null) {
         instance = getBiangTemplate();
         $('body').prepend(instance);
     }
@@ -10387,22 +10456,25 @@ function getInstance(){
 }
 
 const defaultConfig = {
-	title:'提示',
-	button:[{text:'确认', type:'shutdown'}],
+    title: '提示',
+    button: [{
+        text: '确认',
+        type: 'shutdown'
+    }],
 };
 
-function readConfig(config){
-	if(config != null)return config;
-	var configFinal = defaultConfig;
-	for(var key in defaultConfig){
-		if(config[key]!=null){
-			configFinal[key] = config[key];
-		}
-	}
-	return configFinal;
+function readConfig(config) {
+    if (config != null) return config;
+    var configFinal = defaultConfig;
+    for (var key in defaultConfig) {
+        if (config[key] != null) {
+            configFinal[key] = config[key];
+        }
+    }
+    return configFinal;
 }
 
-function show(biang){
+function show(biang) {
     biang = $(biang);
     biang.css('display', 'block');
     biang.find('.biang-mask').addClass('mask-show').removeClass('mask-hide');
@@ -10410,18 +10482,19 @@ function show(biang){
     biang.attr('biang', 'biang');
 }
 
-function empty(biang){
+function empty(biang) {
     biang.find('.biang-header-title').text('');
     biang.find('.biang-content').html('');
     biang.find('.biang-footer').html('');
 }
-function hide(biang){
+
+function hide(biang) {
     biang = $(biang);
     biang.find('.biang-mask').addClass('mask-hide').removeClass('mask-show');
     biang.find('.biang-main').addClass('biang-hide').removeClass('biang-show');
-    setTimeout((function(){
+    setTimeout((function () {
         var biangLocal = biang;
-        return function(){
+        return function () {
             biang.css('display', 'none');
             //清空内容;
             empty(biang);
@@ -10429,84 +10502,91 @@ function hide(biang){
     })(), 300);
     biang.attr('biang', 'idle');
 }
-function isBiangBiang(biang){
-    return $(biang).attr('biang')=='biang'?true:false;
+
+function isBiangBiang(biang) {
+    return $(biang).attr('biang') == 'biang' ? true : false;
 }
-function toggle(biang){
+
+function toggle(biang) {
     biang = $(biang);
-    if(isBiangBiang(biang))
+    if (isBiangBiang(biang))
         hide(biang);
     else show(biang);
 }
 
-function modifyBiang(biang , config){
+function modifyBiang(biang, config) {
     //config/content
-    if(config.url!=null){
-        var iframe = $('<iframe style="width:100%;height:100%" src="'+config.url+'" frameborder="0"></iframe>');
+    if (config.url != null) {
+        var iframe = $('<iframe style="width:100%;height:100%" src="' + config.url + '" frameborder="0"></iframe>');
         biang.find('.biang-content').append(iframe);
-    }else{
-        if(config.content!=null){
+    } else {
+        if (config.content != null) {
             biang.find('.biang-content').append($(config.content));
         }
     }
-    
+
     //title
-    if(config.title!=null){
+    if (config.title != null) {
         biang.find('.biang-header-title').text(config.title);
     }
 
     //footer buttons
     renderFooter(config.button, config.callback, biang);
-}
-
-function getBiangTemplate(){
-    return  $('    <div class="biang">'+
-'        <div class="biang-mask"></div>'+
-'        <div class="biang-main">'+
-'            <div class="biang-header biang-clear">'+
-'                <div class="biang-header-left"><span class="biang-header-title"></span></div>'+
-'                <div class="biang-header-right"><span class="biang-shutdown-icon">X</span></div>'+
-'            </div>'+
-'            <div class="biang-content"></div>'+
-'            <div class="biang-footer biang-clear"></div>'+
-'        </div>'+
-'    </div>');
-}
     
-function getButtonTemplate(text){
-    return $('<button>'+text+'</button>')
+    if(config.style!=null)
+    //render style
+        biang.find('.biang-main').css(config.style);
 }
 
-function renderFooter(buttonsConfig,callbacksConfig, biang){
-    if(buttonsConfig ==null)return;
+function getBiangTemplate() {
+//    return $('    <div class="biang">' +
+//        '        <div class="biang-mask"></div>' +
+//        '        <div class="biang-main">' +
+//        '            <div class="biang-header biang-clear">' +
+//        '                <div class="biang-header-left"><span class="biang-header-title"></span></div>' +
+//        '                <div class="biang-header-right"><span class="biang-shutdown-icon">X</span></div>' +
+//        '            </div>' +
+//        '            <div class="biang-content"></div>' +
+//        '            <div class="biang-footer biang-clear"></div>' +
+//        '        </div>' +
+//        '    </div>');
+    return $(html);
+}
+
+function getButtonTemplate(text) {
+    return $('<button class="biang-button">' + text + '</button>')
+}
+
+function renderFooter(buttonsConfig, callbacksConfig, biang) {
+    if (buttonsConfig == null) return;
     //button
     var footer = biang.find('.biang-footer')
     footer.css('display', 'block');
-    for(var i=0;i<buttonsConfig.length;++i){
-        var  buttonConfig= buttonsConfig[i];
+    for (var i = 0; i < buttonsConfig.length; ++i) {
+        var buttonConfig = buttonsConfig[i];
         var text = buttonConfig;
         var type = '';
-        if(typeof(buttonConfig)!='string'){
+        if (typeof (buttonConfig) != 'string') {
             var text = buttonConfig.text;
             var type = buttonConfig.type;
         }
         var button = getButtonTemplate(text);
-        if(type =='shutdown'){
-            button.click((function(){
+        if (type == 'shutdown') {
+            button.click((function () {
                 var biangLocal = biang;
-                return function(){
-                    hide(biangLocal); 
+                return function () {
+                    hide(biangLocal);
                 }
             })());
         }
-        if(callbacksConfig!=null && callbacksConfig[i]!=null){
-            button.click((function(){
+        if (callbacksConfig != null && callbacksConfig[i] != null) {
+            button.click((function () {
                 var biangLocal = biang;
                 var callback = callbacksConfig[i];
-                return function(){
+                return function () {
                     callback(biangLocal);
                 }
-            })());      
+            })());
         }
         footer.append(button);
     }
@@ -10520,23 +10600,34 @@ content://div content(dom element)
 title://title of the modal
 button://[{'yes', {text:'no', type:'shutdown'}, 'button1']array
 callback://[function(){console.log('yes')}, function(){console.log('no')}, function(){console.log('button1')}]array
+style:{
+background-color:xxx;
+color:xxx;
+}
 }*/
-function biang(config){
-	config = readConfig(config);
+function biang(config) {
+    config = readConfig(config);
 
-	//url不为空，添加iframe
-	//url空，content不空，添加content
-		//content为字符串，添加html否则，append content
-	//content空，则空弹出
-    
+    //url不为空，添加iframe
+    //url空，content不空，添加content
+    //content为字符串，添加html否则，append content
+    //content空，则空弹出
+
     var biang = getInstance();
     modifyBiang(biang, config);
     show(biang);
 }
-module.exports ={
-    biang:biang
+module.exports = {
+    biang: biang
 };
-},{"jquery":1}],3:[function(require,module,exports){
+
+},{"./static/biang.html":4,"./static/css/biang.css":5,"insert-css":1,"jquery":2}],4:[function(require,module,exports){
+module.exports = "<div class=\"biang\">\r\n    <div class=\"biang-mask\"></div>\r\n    <div class=\"biang-main\">\r\n        <div class=\"biang-header biang-clear\">\r\n            <div class=\"biang-header-left\"><span class=\"biang-header-title\"></span></div>\r\n            <div class=\"biang-header-right\"><span class=\"biang-shutdown-icon\">X</span></div>\r\n        </div>\r\n        <div class=\"biang-content\"></div>\r\n        <div class=\"biang-footer biang-clear\"></div>\r\n    </div>\r\n</div>";
+
+},{}],5:[function(require,module,exports){
+module.exports = "@keyframes biang-show {\r\n    from {\r\n        opacity: 0;\r\n        transform: scale(5);\r\n    }\r\n    to {\r\n        opacity: 1;\r\n        transform: translate(-50%, -50%) scale(1);\r\n    }\r\n}\r\n\r\n@keyframes mask-show {\r\n    from {\r\n        opacity: 0;\r\n    }\r\n    to {\r\n        opacity: 0.3;\r\n    }\r\n}\r\n\r\n@keyframes mask-hide {\r\n    from {\r\n        opacity: 0.3;\r\n    }\r\n    to {\r\n        opacity: 0;\r\n    }\r\n}\r\n\r\n.biang-show {\r\n    animation-name: biang-show;\r\n    animation-duration: 0.3s;\r\n    animation-timing-function: ease-out;\r\n    animation-fill-mode: both;\r\n}\r\n\r\n.mask-show {\r\n    animation-name: mask-show;\r\n    animation-duration: 0.3s;\r\n    animation-fill-mode: both;\r\n}\r\n\r\n.mask-hide {\r\n    animation-name: mask-hide;\r\n    animation-duration: 0.3s;\r\n    animation-fill-mode: both;\r\n}\r\n\r\n\r\n\r\n@keyframes biang-hide {\r\n    from {\r\n        opacity: 1;\r\n        transform: scale(1) translate(-50%, -50%);\r\n    }\r\n    to {\r\n        opacity: 0;\r\n        transform: scale(5);\r\n    }\r\n}\r\n\r\n.biang-hide {\r\n    animation-name: biang-hide;\r\n    animation-duration: 0.3s;\r\n    animation-timing-function: ease-in;\r\n    animation-fill-mode: both;\r\n}\r\n\r\n.biang {\r\n    position: fixed;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    color: dimgray;\r\n    display: none;\r\n}\r\n\r\n.biang-mask {\r\n    position: fixed;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: black;\r\n    opacity: 0.3;\r\n}\r\n\r\n.biang-main {\r\n    position: fixed;\r\n    width: 40%;\r\n    height: 30%;\r\n    background-color: white;\r\n    border-radius: 3px;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    top: 50%;\r\n}\r\n\r\n.biang-header {\r\n    position: fixed;\r\n    width: 100%;\r\n    box-sizing: border-box;\r\n    padding: 13px;\r\n    border-bottom: 1px solid #eee;\r\n    z-index: 10;\r\n}\r\n\r\n.biang-clear::after {\r\n    content: '';\r\n    clear: both;\r\n    display: block;\r\n}\r\n\r\n.biang-header-left {\r\n    float: left\r\n}\r\n\r\n.biang-header-right {\r\n    float: right;\r\n}\r\n\r\n.biang-shutdown-icon {\r\n    font-size: 15px;\r\n    transition: all 0.3s;\r\n    display: inline-block;\r\n    padding: 0 5px;\r\n    cursor: pointer;\r\n}\r\n\r\n.biang-shutdown-icon:hover {\r\n    transform: rotate(180deg);\r\n}\r\n\r\n.biang-footer {\r\n    box-sizing: border-box;\r\n    position: fixed;\r\n    bottom: 0;\r\n    width: 100%;\r\n    padding: 13px;\r\n    border: 1px solid #eee;\r\n    transform: translate(0, 100%);\r\n    background-color: white;\r\n    text-align: center;\r\n    /*        display:none;*/\r\n}\r\n\r\n.biang-content {\r\n    box-sizing: border-box;\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    top: 0;\r\n    padding-top: 48px;\r\n    z-index: 9;\r\n}\r\n\r\n.biang-button{\r\n    font-size:17px;\r\n    background-color:white;\r\n    border:0;\r\n    color:dimgray;\r\n    padding:8px;\r\n    border-radius:5px;\r\n    transition:all 0.3s;\r\n    cursor: pointer;\r\n}\r\n.biang-button:hover{\r\n    color:black;\r\n}";
+
+},{}],6:[function(require,module,exports){
 const $ = require('jquery');
 var biang = require('../../biang.js');
 
@@ -10545,10 +10636,15 @@ $(function(){
     $('#btn-demo').click(function(){
             biang.biang({
                 title:'haha',
-                url:'http://baidu.com',
+//                url:'http://baidu.com',
+                content:'<h1>hahaha</h1>',
                 button:['yes', {text:'no', type:'shutdown'}, 'haha'],
-                callback:[function(){console.log('yes')}, null, function(){console.log('haha')}]
+                callback:[function(){console.log('yes')}, null, function(){console.log('haha')}],
+                style:{
+//                    width:'300px',
+//                    height:'200px',
+                }
             });
     });
 });
-},{"../../biang.js":2,"jquery":1}]},{},[3]);
+},{"../../biang.js":3,"jquery":2}]},{},[6]);

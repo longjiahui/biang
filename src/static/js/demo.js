@@ -6,9 +6,14 @@ $(function(){
     $('#btn-demo').click(function(){
             biang.biang({
                 title:'haha',
-                url:'http://baidu.com',
+//                url:'http://baidu.com',
+                content:'<h1>hahaha</h1>',
                 button:['yes', {text:'no', type:'shutdown'}, 'haha'],
-                callback:[function(){console.log('yes')}, null, function(){console.log('haha')}]
+                callback:[function(){console.log('yes')}, null, function(){console.log('haha')}],
+                style:{
+//                    width:'300px',
+//                    height:'200px',
+                }
             });
     });
 });

@@ -4,7 +4,8 @@
   "description": "biang modal",
   "main": "demo.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify -t [ stringify --extensions [.html .css] ] src/static/js/demo.js -o demo.js&&exit 0"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,9 @@
   "homepage": "https://github.com/longjiahui/biang#readme",
   "dependencies": {
     "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "insert-css": "^2.0.0",
+    "stringify": "^5.2.0"
   }
 }
