@@ -1,0 +1,124 @@
+@import '../../utils.less';
+@import './icon/iconfont.css';
+
+.anfo-biang {
+
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 200;
+    font-size: 0.9rem;
+
+    .anfo-biang-animation-wrapper {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+
+    .anfo-biang-main {
+        width: 65%;
+        height: 45%;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 4px;
+
+        @headerHeight: 50px;
+
+        .anfo-biang-header {
+
+            padding: 0 10px;
+            height: 50px;
+            line-height: 50px;
+
+            .Clearfix();
+            .Ellipsis();
+
+            & > div {
+                float: left;
+            }
+
+            @shutdownWidth: 20px;
+
+            .anfo-biang-title {
+                width: calc(100% - @shutdownWidth);
+                .Ellipsis();
+            }
+
+            .anfo-biang-header-shutdown {
+                width: @shutdownWidth;
+                height: 100%;
+                cursor: pointer;
+
+                & div {
+                    text-align: center;
+                    transition: all 0.3s;
+                }
+
+                &:hover div {
+                    transform: rotate(180deg);
+                }
+
+                //                background-size: contain;
+                //                background-position: center;
+                //                background-repeat: no-repeat;
+                //                background-image: url(shutdown.svg);
+            }
+        }
+        
+        .anfo-biang-content{
+            height:calc(100% - @headerHeight);
+        }
+    }
+
+    .anfo-biang-mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+        opacity: 0.5;
+    }
+}
+
+//动画
+
+@keyframes anfo-biang-normal-show {
+    from {
+        transform: scale(3);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes anfo-biang-normal-hide {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+.anfo-biang-normal-show {
+    animation: anfo-biang-normal-show ease-out 0.3s;
+    animation-fill-mode: forwards;
+}
+
+.anfo-biang-normal-hide {
+    animation: anfo-biang-normal-hide ease-out 0.3s;
+    animation-fill-mode: forwards;
+}
