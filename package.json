@@ -11,9 +11,9 @@
         "style-loader": "^0.22.0",
         "uuid": "^3.3.2"
     },
-    "name": "demo",
+    "name": "biang",
     "version": "1.0.0",
-    "main": "webpack.config.js",
+    "main": "./src/widget/biang/biang.js",
     "devDependencies": {
         "babel-loader": "^7.1.5",
         "clean-webpack-plugin": "^0.1.19",

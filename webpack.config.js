@@ -9,8 +9,8 @@ module.exports = {
     entry: {
         index: './src/page/index/index.js',
     },
-//    mode: 'development',
-    mode: 'production',
+    mode: 'development',
+//    mode: 'production',
     devtool: 'inline-source-map',
 //    devtool: 'source-map',
     devServer: {
