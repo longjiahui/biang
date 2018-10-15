@@ -50,7 +50,6 @@ class Biang {
         var _this = this;
         this._id = uuidv1();
         this._args = extend(true, defaultArgs, args);
-        console.log(this._args);
 
         this._dom = stringToDom(template);
         //便捷入口
@@ -77,6 +76,7 @@ class Biang {
 
         //适应参数
         this.modify(args);
+
         console.debug('Biang构造完成');
     }
 
@@ -101,6 +101,7 @@ class Biang {
         //content
         if (args.content !== null && args.content !== undefined) {
             this._content.innerHTML = '';
+            args.content.style.display = 'block';
             this._content.appendChild(args.content);
         }
     }

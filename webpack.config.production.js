@@ -8,18 +8,19 @@ const webpack = require('webpack');
 module.exports = {
     entry: {
         index: './src/page/index/index.js',
-        biang: './src/widget/biang/biang.js'
+        biang: './src/widget/biang/biang.js',
+        'biang.min': './src/widget/biang/biangglobal.js'
     },
-    mode: 'development',
-    //    mode: 'production',
-    devtool: 'inline-source-map',
+    //    mode: 'development',
+    mode: 'production',
+    //    devtool: 'inline-source-map',
     //    devtool: 'source-map',
     devServer: {
-        contentBase: './dist/development'
+        contentBase: './dist/production/'
     },
     output: {
-        path: path.resolve(__dirname, 'dist/development'),
-        filename: '[name][hash].js',
+        path: path.resolve(__dirname, 'dist/production'),
+        filename: '[name].js',
         libraryTarget: 'umd',
         library: 'biang'
     },
@@ -75,7 +76,7 @@ module.exports = {
             }],
     },
     plugins: [
-        new cleanWebpackPlugin('./dist/development/*'),
+        new cleanWebpackPlugin('./dist/production/*'),
         new htmlWebpackPlugin({
             template: './src/page/index/index.html',
             inject: true,
@@ -84,7 +85,7 @@ module.exports = {
         }),
 
         //热替换
-        new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
+//        new webpack.NamedModulesPlugin(),
+//        new webpack.HotModuleReplacementPlugin(),
     ]
 };
