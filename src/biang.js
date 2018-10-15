@@ -89,8 +89,13 @@ function toggle(biang) {
 
 function modifyBiang(biang, config) {
     //config/content
+<<<<<<< HEAD
+    if(config.url!=null){
+        var iframe = $('<iframe style="width:100%;height:100%;border:0" src="'+config.url+'" frameborder="0"></iframe>');
+=======
     if (config.url != null) {
         var iframe = $('<iframe style="width:100%;height:100%" src="' + config.url + '" frameborder="0"></iframe>');
+>>>>>>> 67a00bcb0952f0b0eb1cc95ebc4b1196d26ed485
         biang.find('.biang-content').append(iframe);
     } else {
         if (config.content != null) {
