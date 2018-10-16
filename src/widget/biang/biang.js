@@ -222,6 +222,16 @@ class Biang {
         //上锁
         this._lock();
 
+        //触发隐藏事件
+//        document.dispatchEvent(new CustomEvent('awesome', {
+//            detail: {
+//                text: () => this
+//            }
+//        }));
+        if (typeof this._args.onHide === 'function') {
+            this._args.onHide.call(this, this);
+        }
+
         //mask
         utils.removeClass(this._mask, 'anfo-biang-mask-show');
         utils.addClass(this._mask, 'anfo-biang-mask-hide');

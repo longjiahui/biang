@@ -111,6 +111,7 @@ biang.biang({
         - callback：点击后的回调函数，绑定了this指针为该biang实例
 - animation：自定义动画
     - 默认为anfo-biang-normal，使用时biang会自动使用css中```.anfo-biang-normal-show```和```.anfo-biang-normal-hide```两个动画类
+- onHide：隐藏时触发的回调函数，第一个参数是该biang实例，this指针指向该biang实例
     
 ### 自定义动画
 

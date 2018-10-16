@@ -16,10 +16,14 @@ var b = biang.biang({
         width: '80%',
         height: '80%'
     },
+    onHide:function(e){
+      console.log(this,e);  
+    },
     content: demo1
 });
 
 b.show();
+
 biang.info('lala', {
     btns: [{
         title: '确定',
