@@ -1,7 +1,22 @@
 @import '../../utils.less';
 @import './icon/iconfont.css';
 
+@import './content/tip.less';
+
+@biangZIndex: 200;
+@biangHeaderZIndex: 100;
+@biangContentZIndex: 10;
+@biangFooterZIndex: 100;
+
+.anfo-no-event {
+    pointer-events: none;
+}
+
 .anfo-biang {
+
+    & * {
+        box-sizing: border-box;
+    }
 
     position: absolute;
     height: 100%;
@@ -16,19 +31,23 @@
         width: 100%;
         height: 100%;
         position: absolute;
+        pointer-events:none;
     }
 
     .anfo-biang-main {
-        width: 65%;
-        height: 45%;
+        //        width:200px;
+        //        min-width: 100px;
+        //        min-height: 100px;
         position: relative;
         top: 50%;
         left: 50%;
-        border-radius:5px;
-        transition:all 0.3s;
+        border-radius: 5px;
+        transition: all 0.3s;
         transform: translate(-50%, -50%);
         background: white;
         box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 4px;
+        overflow: hidden;
+        pointer-events:auto;
 
         @headerHeight: 50px;
 
@@ -37,6 +56,11 @@
             padding: 0 10px;
             height: 50px;
             line-height: 50px;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            box-shadow: rgba(0, 0, 0, 0.1) 1px 0 4px;
+            z-index: @biangHeaderZIndex;
 
             .Clearfix();
             .Ellipsis();
@@ -72,9 +96,54 @@
                 //                background-image: url(shutdown.svg);
             }
         }
-        
-        .anfo-biang-content{
-            height:calc(100% - @headerHeight);
+
+        .anfo-biang-content {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: calc(100% - @headerHeight - @footerHeight);
+            background: lightgray;
+            color: black;
+            z-index: @biangContentZIndex;
+        }
+
+        @footerHeight: 50px;
+
+        .anfo-biang-footer {
+            height: @footerHeight;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px -1px 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: @biangFooterZIndex;
+
+            .anfo-biang-btn {
+                cursor: pointer;
+                padding: 0 10px;
+                display: flex;
+                align-items: center;
+
+                .anfo-biang-btn-icon {
+                    font-size: 2rem;
+                }
+
+                .anfo-biang-btn-title {
+                    padding: 5px;
+                }
+
+                //针对 interface confirm中的样式
+                &:hover .icon-radiobutton::before {
+                    color: green;
+                }
+
+                &:hover .icon-roundclosefill::before {
+                    color: lightcoral;
+                }
+            }
         }
     }
 
@@ -91,7 +160,28 @@
 
 //动画
 
-@keyframes anfo-biang-normal-show {
+//mask动画
+@keyframes anfo-biang-mask-show {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0.5;
+    }
+}
+
+@keyframes anfo-biang-mask-hide {
+    from {
+        opacity: 0.5;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes anfo-biang-main-show {
     from {
         transform: scale(3);
         opacity: 0;
@@ -103,7 +193,7 @@
     }
 }
 
-@keyframes anfo-biang-normal-hide {
+@keyframes anfo-biang-main-hide {
     from {
         transform: scale(1);
         opacity: 1;
@@ -115,12 +205,22 @@
     }
 }
 
-.anfo-biang-normal-show {
-    animation: anfo-biang-normal-show ease-out 0.3s;
+.anfo-biang-mask-show {
+    animation: anfo-biang-mask-show ease-out 0.3s;
     animation-fill-mode: forwards;
 }
 
-.anfo-biang-normal-hide {
-    animation: anfo-biang-normal-hide ease-out 0.3s;
+.anfo-biang-mask-hide {
+    animation: anfo-biang-mask-hide ease-out 0.3s;
+    animation-fill-mode: forwards;
+}
+
+.anfo-biang-main-show {
+    animation: anfo-biang-main-show ease-out 0.3s;
+    animation-fill-mode: forwards;
+}
+
+.anfo-biang-main-hide {
+    animation: anfo-biang-main-hide ease-out 0.3s;
     animation-fill-mode: forwards;
 }

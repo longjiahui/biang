@@ -2,3 +2,30 @@ body{
     font-family:consolas;
     color:dimgray;
 }
+
+@keyframes modal-custom-show{
+    from{
+        opacity:0;
+        padding-top:200px;
+    }to{
+        opacity:1;
+        padding-top:0;
+    }
+}
+@keyframes modal-custom-hide{
+    to{
+        opacity:0;
+        padding-top:200px;
+    }from{
+        opacity:1;
+        padding-top:0;
+    }
+}
+.modal-custom-show{
+    animation: modal-custom-show ease-out 0.3s;
+    animation-fill-mode: forwards;
+}
+.modal-custom-hide{
+    animation: modal-custom-hide ease-out 0.3s;
+    animation-fill-mode: forwards;
+}

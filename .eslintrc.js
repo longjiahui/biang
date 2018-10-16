@@ -89,5 +89,6 @@ module.exports = {
         "XMLHttpRequest": false,
         "module":false,
         "document":false,
+        "global":false,
     }
 };

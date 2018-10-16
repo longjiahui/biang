@@ -8,7 +8,7 @@ const webpack = require('webpack');
 module.exports = {
     entry: {
         index: './src/page/index/index.js',
-        biang: './src/widget/biang/biang.js'
+//        biang: './src/widget/biang/biang.js'
     },
     mode: 'development',
     //    mode: 'production',
@@ -19,9 +19,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist/development'),
-        filename: '[name][hash].js',
-        libraryTarget: 'umd',
-        library: 'biang'
+        filename: '[name][hash].js'
     },
     module: {
         rules: [

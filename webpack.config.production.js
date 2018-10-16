@@ -7,9 +7,9 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        index: './src/page/index/index.js',
-        biang: './src/widget/biang/biang.js',
-        'biang.min': './src/widget/biang/biangglobal.js'
+//        index: './src/page/index/index.js',
+        biang: './src/widget/biang/interface.js',
+        'biang.min': './src/widget/biang/interfaceglobal.js'
     },
     //    mode: 'development',
     mode: 'production',
@@ -77,12 +77,6 @@ module.exports = {
     },
     plugins: [
         new cleanWebpackPlugin('./dist/production/*'),
-        new htmlWebpackPlugin({
-            template: './src/page/index/index.html',
-            inject: true,
-            filename: 'html/index.html',
-            chuncks: ['index'],
-        }),
 
         //热替换
 //        new webpack.NamedModulesPlugin(),
