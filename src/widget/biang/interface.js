@@ -23,18 +23,19 @@ function getTipArgs(args) {
 }
 
 function error(text, args) {
-    var dom = _getTipDom();
-    dom._title.innerHTML = text;
     args = getTipArgs(args);
-    args.content = dom;
+    if (typeof text === 'string') {
+        var dom = _getTipDom();
+        dom._title.innerHTML = text;
+        args.content = dom;
+    } else {
+        args.content = text;
+    }
     return new Biang(args);
 }
 
 function info(text, args) {
-    var dom = _getTipDom();
-    dom._title.innerHTML = text;
     args = getTipArgs(args);
-
     if (!args.btns || args.btns.length <= 0) {
         args.btns = [{
             className: 'iconfont icon-radiobutton',
@@ -42,7 +43,13 @@ function info(text, args) {
         }];
     }
 
-    args.content = dom;
+    if (typeof text === 'string') {
+        var dom = _getTipDom();
+        dom._title.innerHTML = text;
+        args.content = dom;
+    } else {
+        args.content = text;
+    }
     return new Biang(args);
 }
 
@@ -78,13 +85,18 @@ function confirm(text, callback, args) {
     }
     ];
 
-    var dom = _getTipDom();
-    dom._title.innerHTML = text;
     if (args === null || args === undefined) {
         args = {};
     }
     extend(true, args, confirmArgs);
-    args.content = dom;
+
+    if (typeof text === 'string') {
+        var dom = _getTipDom();
+        dom._title.innerHTML = text;
+        args.content = dom;
+    } else {
+        args.content = text;
+    }
     return new Biang(args);
 }
 

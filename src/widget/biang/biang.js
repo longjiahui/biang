@@ -144,12 +144,13 @@ class Biang {
         //content
         if (args.content !== null && args.content !== undefined) {
             this._content.innerHTML = '';
-            args.content.style.display = 'block';
             //如果是字符串则直接innerHTML，否则视为node
             if (typeof args.content === 'string') {
                 this._content.innerHTML = args.content;
             } else {
-                this._content.appendChild(args.content);
+                var tmp = args.content.cloneNode(true);
+                tmp.style.display = 'block';
+                this._content.appendChild(tmp);
             }
         }
 
@@ -173,6 +174,10 @@ class Biang {
         }
         if (this._args.btns && this._args.btns.length > 0) {
             footerState = true;
+            this._footer.style.display = 'flex';
+        } else {
+            //隐藏footer
+            this._footer.style.display = 'none';
         }
         this._content.style.height = 'calc(100% - ' + ((headerState ? 50 : 0) + (footerState ? 50 : 0)) + 'px)';
 

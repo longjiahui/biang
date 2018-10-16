@@ -59,7 +59,7 @@
             position: absolute;
             top: 0;
             width: 100%;
-            box-shadow: rgba(0, 0, 0, 0.1) 1px 0 4px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0 0 2px;
             z-index: @biangHeaderZIndex;
 
             .Clearfix();
@@ -102,9 +102,10 @@
             top: 0;
             width: 100%;
             height: calc(100% - @headerHeight - @footerHeight);
-            background: lightgray;
+            background: #EEE;
             color: black;
             z-index: @biangContentZIndex;
+            overflow:auto;
         }
 
         @footerHeight: 50px;
@@ -115,7 +116,7 @@
             position: absolute;
             bottom: 0;
             width: 100%;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px -1px 4px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 2px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -137,7 +138,7 @@
 
                 //针对 interface confirm中的样式
                 &:hover .icon-radiobutton::before {
-                    color: green;
+                    color: forestgreen;
                 }
 
                 &:hover .icon-roundclosefill::before {

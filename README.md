@@ -1,6 +1,8 @@
 # Biang
 
-Biang就是个简单的modal框，用了一个X的图标，只用了原生的js，使用webpack打的包。
+Biang就是个简单的modal框，用了一个X的图标，只用了原生的js，使用webpack打的包。Demo可查看[这里](http://47.52.234.226:8080/)
+
+<iframe style="width:100%;height:400px" src="http://47.52.234.226:8080" frameborder="0"/>
 
 # Features
 

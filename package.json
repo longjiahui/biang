@@ -2,7 +2,7 @@
     "dependencies": {
     },
     "name": "biang",
-    "version": "1.0.8",
+    "version": "1.0.10",
     "main": "./dist/production/biang.js",
     "devDependencies": {
         "babel-loader": "^7.1.5",
