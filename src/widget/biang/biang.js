@@ -87,7 +87,10 @@ class Biang {
             this._doStyle(dom, btn.style);
         }
         if (btn.className !== null && btn.className !== undefined) {
-            utils.addClass(dom.getElementsByClassName('anfo-biang-btn-icon')[0], btn.className);
+            utils.addClass(dom, btn.className);
+        }
+        if (btn.icon !== null && btn.icon !== undefined) {
+            utils.addClass(dom.getElementsByClassName('anfo-biang-btn-icon')[0], btn.icon);
         }
         this._doEvents(dom, [{
             type: 'click',
@@ -136,7 +139,8 @@ class Biang {
                 //添加到args是因为 下面会更具args判断是否需要更新
                 this._args.btns = args.btns = [{
                     title: 'Ok',
-                    className: 'iconfont icon-roundclosefill'
+                    className: 'anfo-biang-btn-error',
+                    icon: 'iconfont icon-roundclosefill'
                 }];
             }
         }
@@ -223,11 +227,11 @@ class Biang {
         this._lock();
 
         //触发隐藏事件
-//        document.dispatchEvent(new CustomEvent('awesome', {
-//            detail: {
-//                text: () => this
-//            }
-//        }));
+        //        document.dispatchEvent(new CustomEvent('awesome', {
+        //            detail: {
+        //                text: () => this
+        //            }
+        //        }));
         if (typeof this._args.onHide === 'function') {
             this._args.onHide.call(this, this);
         }

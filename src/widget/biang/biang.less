@@ -31,7 +31,7 @@
         width: 100%;
         height: 100%;
         position: absolute;
-        pointer-events:none;
+        pointer-events: none;
     }
 
     .anfo-biang-main {
@@ -45,9 +45,9 @@
         transition: all 0.3s;
         transform: translate(-50%, -50%);
         background: white;
-        box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 4px;
+        //        box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 4px;
         overflow: hidden;
-        pointer-events:auto;
+        pointer-events: auto;
 
         @headerHeight: 50px;
 
@@ -59,7 +59,7 @@
             position: absolute;
             top: 0;
             width: 100%;
-            box-shadow: rgba(0, 0, 0, 0.1) 0 0 2px;
+            //            box-shadow: rgba(0, 0, 0, 0.1) 0 0 2px;
             z-index: @biangHeaderZIndex;
 
             .Clearfix();
@@ -102,10 +102,10 @@
             top: 0;
             width: 100%;
             height: calc(100% - @headerHeight - @footerHeight);
-            background: #EEE;
+            background: white;
             color: black;
             z-index: @biangContentZIndex;
-            overflow:auto;
+            overflow: auto;
         }
 
         @footerHeight: 50px;
@@ -116,11 +116,30 @@
             position: absolute;
             bottom: 0;
             width: 100%;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 2px;
+            //            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 2px;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: @biangFooterZIndex;
+
+
+            .anfo-biang-btn-info {
+
+                &:hover {
+                    color: forestgreen;
+                }
+
+                transition:all 0.3s;
+            }
+
+            .anfo-biang-btn-error {
+
+                &:hover {
+                    color: lightcoral;
+                }
+
+                transition:all 0.3s;
+            }
 
             .anfo-biang-btn {
                 cursor: pointer;
@@ -129,20 +148,11 @@
                 align-items: center;
 
                 .anfo-biang-btn-icon {
-                    font-size: 2rem;
+                    font-size: 1.2rem;
                 }
 
                 .anfo-biang-btn-title {
                     padding: 5px;
-                }
-
-                //针对 interface confirm中的样式
-                &:hover .icon-radiobutton::before {
-                    color: forestgreen;
-                }
-
-                &:hover .icon-roundclosefill::before {
-                    color: lightcoral;
                 }
             }
         }

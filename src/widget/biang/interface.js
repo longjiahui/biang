@@ -38,7 +38,8 @@ function info(text, args) {
     args = getTipArgs(args);
     if (!args.btns || args.btns.length <= 0) {
         args.btns = [{
-            className: 'iconfont icon-radiobutton',
+            className: 'anfo-biang-btn-info',
+            icon: 'iconfont icon-radiobutton',
             title: 'Ok'
         }];
     }
@@ -65,7 +66,8 @@ function confirm(text, callback, args) {
 
     confirmArgs.btns = [{
             title: 'No',
-            className: 'iconfont icon-roundclosefill',
+            className: 'anfo-biang-btn-error',
+            icon: 'iconfont icon-roundclosefill',
             callback: function () {
                 this.hide();
                 if (typeof callback === 'function') {
@@ -74,7 +76,8 @@ function confirm(text, callback, args) {
             }
     }, {
             title: 'Yes',
-            className: 'iconfont icon-radiobutton',
+            className: 'anfo-biang-btn-info',
+            icon: 'iconfont icon-radiobutton',
             callback: function () {
                 //  this-> biang 
                 this.hide();

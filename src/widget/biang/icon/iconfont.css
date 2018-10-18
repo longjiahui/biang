@@ -26,12 +26,8 @@
 
 .icon-radiobutton:before {
     content: "\e6a7";
-    
-    transition: all 0.3s;
 }
 .icon-roundclosefill:before {
     content: "\e6d1";
     font-weight:lighter;
-    
-    transition: all 0.3s;
 }

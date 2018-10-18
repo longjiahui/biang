@@ -107,7 +107,8 @@ biang.biang({
 - btns：按钮组，数组。
     - 单个btn结构说明
         - title：文字描述
-        - className：类名，用来填入图标的类，例如fontawesome、iconfont的类名
+        - className：类名，表示整个btn的类，可以加hover样式
+        - icon：类名，用来填入图标的类，例如fontawesome、iconfont的类名，会显示在title前面
         - callback：点击后的回调函数，绑定了this指针为该biang实例
 - animation：自定义动画
     - 默认为anfo-biang-normal，使用时biang会自动使用css中```.anfo-biang-normal-show```和```.anfo-biang-normal-hide```两个动画类

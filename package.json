@@ -2,7 +2,7 @@
     "dependencies": {
     },
     "name": "biang",
-    "version": "1.0.11",
+    "version": "1.2.0",
     "main": "./dist/production/biang.js",
     "devDependencies": {
         "babel-loader": "^7.1.5",
@@ -36,6 +36,10 @@
         "start": "concurrently \"webpack --watch\" \"webpack-dev-server --open --hotOnly\""
     },
     "author": "Anfo",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/longjiahui/biang.git"
+    } ,
     "license": "MIT",
     "description": ""
 }
