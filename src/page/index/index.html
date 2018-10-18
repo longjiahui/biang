@@ -1,10 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Demo</title>
 </head>
-<body>
+<script src="biang.min.js"></script>
+<link rel="stylesheet" href="iconfont/iconfont.css">
+<style>
+    body {
+        color: dimgray;
+        font-family: consolas;
+    }
 
+    #content1 {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        display: none;
+    }
+
+    #content1>img {
+        width: 100%;
+    }
+
+    .theme {
+        text-align: center;
+        color: forestgreen;
+        border-radius: 5px;
+        padding: 4px;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        pointer-events: none;
+    }
+
+    .theme::after {
+        pointer-events: auto;
+        content: '\e60b';
+        padding: 3px;
+        cursor: pointer;
+        font-family: "iconfont" !important;
+        font-size: 16px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .container::after {
+        content: '';
+        display: block;
+        clear: both;
+        zoom: 1;
+    }
+
+    .btn {
+        padding: 5px;
+        border-bottom: 2px solid transparent;
+
+        margin: 10px;
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+    
+    .btn-icon{
+        transition:0.3s;
+    }
+    .btn-icon:hover{
+        transform:scale(1.2);
+    }
+
+    .btn:hover {
+        /*        background-color: darkseagreen;*/
+        border-bottom: 2px solid darkseagreen;
+        /*        color: white;*/
+    }
+
+    /*图片图标*/
+    .icon {
+        width: 20px;
+        height: 20px;
+        background-size: cover;
+        transition: all 0.3s;
+    }
+
+    .icon-1 {
+        background-image: url(icon/Food-Icons-05.png)
+    }
+
+    .icon-2 {
+        background-image: url(icon/Food-Icons-07.png)
+    }
+
+    .icon-3 {
+        background-image: url(icon/Food-Icons-15.png)
+    }
+
+    .icon-4 {
+        background-image: url(icon/Food-Icons-17.png)
+    }
+
+    /*动画自定义*/
+    @keyframes custom-show {
+        from {
+            opacity: 0;
+            transform: translate(-200px, 0) rotate(90deg);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate(0, 0) rotate(0);
+        }
+    }
+
+    @keyframes custom-hide {
+        to {
+            opacity: 0;
+            transform: translate(200px, 0) rotate(-90deg);
+        }
+
+        from {
+            opacity: 1;
+            transform: translate(0, 0) rotate(0);
+        }
+    }
+
+    .custom-show {
+        animation: custom-show ease-out 0.3s;
+        animation-fill-mode: forwards;
+    }
+
+    .custom-hide {
+        animation: custom-hide ease-out 0.3s;
+        animation-fill-mode: forwards;
+    }
+
+</style>
+
+<body>
+    <div id="theme-info" class="theme">报告错误，输出信息</div>
+    <div class="container">
+        <div id="info" class="btn">info</div>
+        <div id="custom-info" class="btn">custom-info</div>
+        <div id="error" class="btn">error</div>
+    </div>
+
+    <div id="theme-confirm" class="theme">确认用户行为</div>
+    <div class="container">
+        <div id="confirm" class="btn">confirm</div>
+    </div>
+
+    <div id="theme-custom" class="theme">自定义弹窗</div>
+    <div class="container">
+
+        <div id="custom-animation" class="btn">custom-animation</div>
+        <div id="custom-iframe" class="btn">custom-iframe</div>
+        <div id="custom-btns" class="btn">custom-btns</div>
+    </div>
+
+    <div id="content1">
+        <img src="fan.jpg" alt="">
+    </div>
 </body>
+<script>
+    var themes = document.getElementsByClassName('theme');
+    for (var i = 0; i < themes.length; ++i) {
+        (function() {
+            var theme = themes[i];
+            theme.onclick = function() {
+                if (theme.id === 'theme-info') {
+                    biang.info('。。。').show();
+                }
+                if (theme.id === 'theme-confirm') {
+                    biang.info('。。。').show();
+                }
+                if (theme.id === 'theme-custom') {
+                    biang.info('。。。').show();
+                }
+            }
+        })();
+    }
+
+    function bindClick(id, callback) {
+        document.getElementById(id).onclick = callback;
+    }
+    bindClick('info', function() {
+        biang.info('👀 是谁的小眼睛，还没看到我').show();
+    });
+    bindClick('custom-info', function() {
+        biang.info(document.getElementById('content1'), {
+            style: {
+                height: '220px'
+            }
+        }).show();
+    });
+    bindClick('error', function() {
+        biang.error('出错啦，就因为你没看到我 👀！').show();
+    });
+    bindClick('confirm', function() {
+        biang.confirm('👀 所以你要不要看看我', function(yes) {
+            if (yes) {
+                biang.info('来看看我吧 <a style="text-decoration:none;color:red" href="https://github.com/longjiahui/biang" target="_blank">我在这里哦😀</a>').show();
+            } else {
+                biang.error('😕哼！').show();
+            }
+        }).show();
+    });
+    bindClick('custom-iframe', function() {
+        biang.biang({
+            title: 'custom-iframe',
+            style: {
+                width: '800px',
+                height: '600px'
+            },
+            content: '<div style="width:100%;height:100%;position:absolute;overflow:hidden"><iframe src="http://47.52.234.226" style="width:100%;height:100%" frameborder="0"></iframe></div>',
+        }).show();
+    });
+    bindClick('custom-animation', function() {
+        biang.biang({
+            title: 'custom-animation',
+            style: {
+                width: '300px',
+                height: '200px'
+            },
+            content: '<h3 style="padding-left:20px"> 自定义动画</h3>',
+            animation: 'custom'
+        }).show();
+    });
+    bindClick('custom-btns', function() {
+        biang.biang({
+            title: 'custom-btns',
+            style: {
+                width: '500px',
+                height: '200px'
+            },
+            content: '<h3 style="padding-left:20px"> 不知道吃什么好呢😭</h3>',
+            animation: 'custom',
+            btns: [{
+                className:'btn-icon',
+                icon: 'icon icon-2',
+                title: 'fish',
+                callback: function() {
+                    biang.error('你为什么觉得你够钱呢！😝').show();
+                }
+            }, {
+                className:'btn-icon',
+                icon: 'icon icon-4',
+                title: 'hamburger',
+                callback: function() {
+                    biang.error('会胖的！😝').show();
+                }
+            }, {
+                className:'btn-icon',
+                icon: 'icon icon-3',
+                title: 'donut',
+                callback: function() {
+                    biang.error('会胖死的！😝').show();
+                }
+            }, {
+                className:'btn-icon',
+                icon: 'icon icon-1',
+                title: 'chicken',
+                callback: function() {
+                    biang.error('技术不够！😝').show();
+                }
+            }]
+        }).show();
+    });
+
+</script>
+
 </html>

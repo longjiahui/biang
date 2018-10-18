@@ -243,16 +243,21 @@ class Biang {
         utils.removeClass(this._animationWrapper, this._args.animation + '-show');
         utils.addClass(this._animationWrapper, this._args.animation + '-hide');
 
-        setTimeout(
-            function () {
-                //mask
-                utils.removeClass(_this._mask, 'anfo-biang-mask-hide');
-                //main
-                utils.removeClass(_this._animationWrapper, _this._args.animation + '-hide');
-                document.body.removeChild(_this._dom);
-                //解锁
-                _this._unlock();
-            }, 300);
+        if (!_this.timeoutLock) {
+            setTimeout(
+                function () {
+                    //mask
+                    utils.removeClass(_this._mask, 'anfo-biang-mask-hide');
+                    //main
+                    utils.removeClass(_this._animationWrapper, _this._args.animation + '-hide');
+                    document.body.removeChild(_this._dom);
+                    //解锁
+                    _this._unlock();
+                    //保证timeout只被设置一次，哪怕用户点的比0.3s频率还要快
+                    _this.timeoutLock = false;
+                }, 300);
+        }
+        _this.timeoutLock = true;
     }
 
     loading() {
