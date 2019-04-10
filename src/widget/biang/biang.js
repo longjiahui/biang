@@ -19,6 +19,8 @@ function getArgs(args) {
         btns: [],
         animation: 'anfo-biang-main',
 
+        showHeaderShutdown: false,
+
         _footerHeight: 50,
         _headerHeight: 50
     }, args);
@@ -130,6 +132,8 @@ class Biang {
         if (this._args.title !== null && this._args.title !== undefined) {
             this._title.innerHTML = this._args.title;
             this._header.style.display = 'block';
+            //是否显示header上的shutdown
+            this._headerShutdown.style.display = args.showHeaderShutdown?"block":"none";
         } else {
             //如果是空，则隐藏header
             this._header.style.display = 'none';
@@ -138,9 +142,9 @@ class Biang {
                 //添加
                 //添加到args是因为 下面会更具args判断是否需要更新
                 this._args.btns = args.btns = [{
-                    title: 'Ok',
+                    title: 'OK',
                     className: 'anfo-biang-btn-error',
-                    icon: 'iconfont icon-roundclosefill'
+                    // icon: 'iconfont icon-roundclosefill'
                 }];
             }
         }

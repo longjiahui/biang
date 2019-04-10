@@ -25,7 +25,6 @@
     left: 0;
     overflow: hidden;
     z-index: 200;
-    font-size: 0.9rem;
 
     .anfo-biang-animation-wrapper {
         width: 100%;
@@ -41,11 +40,11 @@
         position: relative;
         top: 50%;
         left: 50%;
-        border-radius: 5px;
+        // border-radius: 5px;
         transition: all 0.3s;
         transform: translate(-50%, -50%);
         background: white;
-        //        box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 4px;
+        box-shadow: rgba(0, 0, 0, 0.4) 2px 2px 25px;
         overflow: hidden;
         pointer-events: auto;
 
@@ -53,13 +52,13 @@
 
         .anfo-biang-header {
 
-            padding: 0 10px;
+            padding: 0 20px;
             height: 50px;
             line-height: 50px;
             position: absolute;
             top: 0;
             width: 100%;
-            //            box-shadow: rgba(0, 0, 0, 0.1) 0 0 2px;
+            // box-shadow: rgba(0, 0, 0, 0.1) 2px 4px 4px;
             z-index: @biangHeaderZIndex;
 
             .Clearfix();
@@ -124,9 +123,8 @@
 
 
             .anfo-biang-btn-info {
-
                 &:hover {
-                    color: forestgreen;
+                    color: black;
                 }
 
                 transition:all 0.3s;
@@ -135,7 +133,7 @@
             .anfo-biang-btn-error {
 
                 &:hover {
-                    color: lightcoral;
+                    color: black;
                 }
 
                 transition:all 0.3s;
@@ -144,14 +142,22 @@
             .anfo-biang-btn {
                 cursor: pointer;
                 padding: 0 10px;
-                display: flex;
                 align-items: center;
+                flex:1;
+                display:flex;
+                justify-content: center;
+                height: 100%;
+
+                &:hover{
+                    background: whitesmoke;
+                }
 
                 .anfo-biang-btn-icon {
                     font-size: 1.2rem;
                 }
 
                 .anfo-biang-btn-title {
+                    font-size:  1.2rem;
                     padding: 5px;
                 }
             }

@@ -39,8 +39,8 @@ function info(text, args) {
     if (!args.btns || args.btns.length <= 0) {
         args.btns = [{
             className: 'anfo-biang-btn-info',
-            icon: 'iconfont icon-radiobutton',
-            title: 'Ok'
+            // icon: 'iconfont icon-radiobutton',
+            title: 'OK'
         }];
     }
 
@@ -65,9 +65,9 @@ var confirmArgs = {
 function confirm(text, callback, args) {
 
     confirmArgs.btns = [{
-            title: 'No',
+            title: 'NO',
             className: 'anfo-biang-btn-error',
-            icon: 'iconfont icon-roundclosefill',
+            // icon: 'iconfont icon-roundclosefill',
             callback: function () {
                 this.hide();
                 if (typeof callback === 'function') {
@@ -75,9 +75,9 @@ function confirm(text, callback, args) {
                 }
             }
     }, {
-            title: 'Yes',
+            title: 'YES',
             className: 'anfo-biang-btn-info',
-            icon: 'iconfont icon-radiobutton',
+            // icon: 'iconfont icon-radiobutton',
             callback: function () {
                 //  this-> biang 
                 this.hide();

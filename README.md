@@ -105,6 +105,7 @@ biang.biang({
 - title：标题，如果为null/undefined则modal框没有header栏，若没配置btns属性则会在footer处增加一个X图标用来供用户主动关闭modal框。
 - style：样式，设置modal框的样式，最主要用来调整modal框大小，分别是width和height，也可以调整边框和radius等等，直接操作node的style属性。
 - content：modal框内容，接受string和HTML Dom类型的变量，string会填入innerHTML中。
+- showHeaderShutdown: 是否显示header上的X，默认是false不显示
 - btns：按钮组，数组。
     - 单个btn结构说明
         - title：文字描述
