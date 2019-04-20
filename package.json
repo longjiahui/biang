@@ -1,7 +1,7 @@
 {
     "dependencies": {},
     "name": "biang",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "main": "./dist/production/biang.js",
     "devDependencies": {
         "autoprefixer": "^9.5.1",
